@@ -1,5 +1,5 @@
 {
-  "name": "movie-import-json-generator",
+  "name": "movie-json-generator",
   "version": "1.0.0",
   "private": true,
   "scripts": {
