@@ -1,1 +1,1 @@
-export const Input = ({ ...props }) => <input {...props} className='p-2 border rounded w-full' />;
+export const Input = (props) => <input {...props} style={{ display: 'block', margin: '10px 0', padding: '8px', width: '100%' }} />;

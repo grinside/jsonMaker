@@ -1,1 +1,1 @@
-export const Button = ({ children, ...props }) => <button {...props} className='p-2 rounded bg-blue-600 text-white'>{children}</button>;
+export const Button = ({ children, ...props }) => <button {...props} style={{ padding: '10px', backgroundColor: '#4a90e2', color: 'white', border: 'none', borderRadius: '5px', marginTop: '10px' }}>{children}</button>;
