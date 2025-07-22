@@ -17,43 +17,78 @@ export default function MovieImportGenerator() {
 
   const generateJSON = () => {
     const json = {
-      movies: [
+      externalId: "",
+      metadata: {
+        guid,
+        title: movieTitle,
+        originalTitle: movieTitle,
+        tinyDescription: "",
+        shortDescription: "",
+        description: "",
+        year,
+        distributor: "",
+        ratings: "",
+        duration,
+        publishDate: "",
+        endPublishDate: "",
+        categories: [
+          {
+            type: "",
+            name: "",
+            translations: [
+              {
+                field: "name",
+                value: "",
+                language: ""
+              }
+            ]
+          }
+        ],
+        people: [
+          {
+            firstName: "",
+            lastName: "",
+            role: ""
+          }
+        ],
+        images: [
+          {
+            fileName: "",
+            role: ""
+          }
+        ],
+        translations: [
+          {
+            field: "",
+            value: "",
+            language: ""
+          }
+        ],
+        collections: [
+          ""
+        ]
+      },
+      series: isSeries ? {
+        externalId: seriesGuid,
+        seasonNumber,
+        episodeNumber
+      } : {
+        externalId: "",
+        seasonNumber: "",
+        episodeNumber: ""
+      },
+      season: isSeries ? {
+        externalId: seriesGuid,
+        seasonNumber
+      } : {
+        externalId: "",
+        seasonNumber: ""
+      },
+      mediaFiles: [
         {
-          language,
-          metadata: {
-            guid,
-            title: movieTitle,
-            originalTitle: movieTitle,
-            tinyDescription: "",
-            shortDescription: "",
-            description: "",
-            year,
-            distributor: "",
-            ratings: "",
-            duration,
-            publishDate: "",
-            endPublishDate: "",
-            episode: episodeNumber,
-            categories: [],
-            people: [],
-            images: [],
-            translations: [],
-            collections: []
-          },
-          series: isSeries ? {
-            guid: seriesGuid,
-            title: "",
-            originalTitle: "",
-            tinyDescription: "",
-            shortDescription: "",
-            description: "",
-            categories: [],
-            people: [],
-            images: [],
-            translations: []
-          } : null,
-          season: isSeries ? { number: seasonNumber } : null,
-          mediaFiles: []
+          fileName: "",
+          role: "",
+          transcodingId: ""
         }
       ]
     };
