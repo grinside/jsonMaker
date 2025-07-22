@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 export default function App() {
   const [isSeries, setIsSeries] = useState(false);
+  const [externalId, setExternalId] = useState("");
   const [metadata, setMetadata] = useState({
     guid: "", title: "", originalTitle: "", tinyDescription: "", shortDescription: "", description: "",
     year: "", distributor: "", ratings: "", duration: "", publishDate: "", endPublishDate: "", episode: ""
@@ -11,6 +12,12 @@ export default function App() {
   });
   const [season, setSeason] = useState({ number: "" });
   const [output, setOutput] = useState("");
+  const [mediaFile, setMediaFile] = useState({ fileName: "", role: "", transcodingId: "" });
+  const [category, setCategory] = useState({ type: "", name: "", language: "", translation: "" });
+  const [person, setPerson] = useState({ firstName: "", lastName: "", role: "" });
+  const [image, setImage] = useState({ fileName: "", role: "" });
+  const [translation, setTranslation] = useState({ field: "", value: "", language: "" });
+  const [collection, setCollection] = useState("");
 
   const handleChange = (e, setter) => {
     const { name, value } = e.target;
@@ -59,45 +66,43 @@ export default function App() {
 
   const generateJSON = () => {
     const json = {
-      externalId: "",
+      externalId: externalId,
       metadata: {
         ...metadata,
         categories: [
           {
-            type: "",
-            name: "",
+            type: category.type,
+            name: category.name,
             translations: [
               {
                 field: "name",
-                value: "",
-                language: ""
+                value: category.translation,
+                language: category.language
               }
             ]
           }
         ],
         people: [
           {
-            firstName: "",
-            lastName: "",
-            role: ""
+            firstName: person.firstName,
+            lastName: person.lastName,
+            role: person.role
           }
         ],
         images: [
           {
-            fileName: "",
-            role: ""
+            fileName: image.fileName,
+            role: image.role
           }
         ],
         translations: [
           {
-            field: "",
-            value: "",
-            language: ""
+            field: translation.field,
+            value: translation.value,
+            language: translation.language
           }
         ],
-        collections: [
-          ""
-        ]
+        collections: [collection]
       },
       series: isSeries ? {
         externalId: seriesMetadata.guid,
@@ -110,9 +115,9 @@ export default function App() {
       } : {},
       mediaFiles: [
         {
-          fileName: "",
-          role: "",
-          transcodingId: ""
+          fileName: mediaFile.fileName,
+          role: mediaFile.role,
+          transcodingId: mediaFile.transcodingId
         }
       ]
     };
@@ -139,6 +144,15 @@ export default function App() {
         <input type="checkbox" checked={isSeries} onChange={(e) => setIsSeries(e.target.checked)} />
         {" "}This is an episode of a series
       </label>
+
+      <h2>External ID</h2>
+      <input
+        name="externalId"
+        value={externalId}
+        onChange={(e) => setExternalId(e.target.value)}
+        placeholder="External ID"
+        style={{ width: "100%", margin: "5px 0", padding: "8px" }}
+      />
 
       <h2>Metadata</h2>
       {Object.keys(metadata).map(key => (
@@ -176,6 +190,75 @@ export default function App() {
           />
         </>
       )}
+
+      <h2>Category</h2>
+      {Object.keys(category).map(key => (
+        <input
+          key={key}
+          name={key}
+          value={category[key]}
+          onChange={(e) => handleChange(e, setCategory)}
+          placeholder={key}
+          style={{ width: "100%", margin: "5px 0", padding: "8px" }}
+        />
+      ))}
+
+      <h2>People</h2>
+      {Object.keys(person).map(key => (
+        <input
+          key={key}
+          name={key}
+          value={person[key]}
+          onChange={(e) => handleChange(e, setPerson)}
+          placeholder={key}
+          style={{ width: "100%", margin: "5px 0", padding: "8px" }}
+        />
+      ))}
+
+      <h2>Images</h2>
+      {Object.keys(image).map(key => (
+        <input
+          key={key}
+          name={key}
+          value={image[key]}
+          onChange={(e) => handleChange(e, setImage)}
+          placeholder={key}
+          style={{ width: "100%", margin: "5px 0", padding: "8px" }}
+        />
+      ))}
+
+      <h2>Translations</h2>
+      {Object.keys(translation).map(key => (
+        <input
+          key={key}
+          name={key}
+          value={translation[key]}
+          onChange={(e) => handleChange(e, setTranslation)}
+          placeholder={key}
+          style={{ width: "100%", margin: "5px 0", padding: "8px" }}
+        />
+      ))}
+
+      <h2>Collections</h2>
+      <input
+        name="collection"
+        value={collection}
+        onChange={(e) => setCollection(e.target.value)}
+        placeholder="Collection"
+        style={{ width: "100%", margin: "5px 0", padding: "8px" }}
+      />
+
+      <h2>Media File</h2>
+      {Object.keys(mediaFile).map(key => (
+        <input
+          key={key}
+          name={key}
+          value={mediaFile[key]}
+          onChange={(e) => handleChange(e, setMediaFile)}
+          placeholder={key}
+          style={{ width: "100%", margin: "5px 0", padding: "8px" }}
+        />
+      ))}
 
       <button onClick={generateJSON} style={{ marginTop: "10px", padding: "10px 20px" }}>Generate JSON</button>
       {output && (
