@@ -59,64 +59,29 @@ export default function App() {
 
   const generateJSON = () => {
     const json = {
-      externalId: "",
-      metadata: {
-        ...metadata,
-        categories: [
-          {
-            type: "",
-            name: "",
-            translations: [
-              {
-                field: "name",
-                value: "",
-                language: ""
-              }
-            ]
-          }
-        ],
-        people: [
-          {
-            firstName: "",
-            lastName: "",
-            role: ""
-          }
-        ],
-        images: [
-          {
-            fileName: "",
-            role: ""
-          }
-        ],
-        translations: [
-          {
-            field: "",
-            value: "",
-            language: ""
-          }
-        ],
-        collections: [
-          ""
-        ]
-      },
-      series: isSeries ? {
-        externalId: seriesMetadata.guid,
-        seasonNumber: season.number,
-        episodeNumber: metadata.episode
-      } : {},
-      season: isSeries ? {
-        externalId: seriesMetadata.guid,
-        seasonNumber: season.number
-      } : {},
-      mediaFiles: [
+      movies: [
         {
-          fileName: "",
-          role: "",
-          transcodingId: ""
+          language: "",
+          metadata: {
+            ...metadata,
+            categories: [],
+            people: [],
+            images: [],
+            translations: [],
+            collections: []
+          },
+          series: isSeries ? {
+            ...seriesMetadata,
+            categories: [],
+            people: [],
+            images: [],
+            translations: []
+          } : {},
+          season: isSeries ? { ...season } : {},
+          mediaFiles: []
         }
       ]
     };
-
     setOutput(JSON.stringify(json, null, 2));
   };
 
